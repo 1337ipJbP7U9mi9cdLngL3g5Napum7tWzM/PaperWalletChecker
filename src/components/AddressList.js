@@ -216,28 +216,28 @@ class AddressList extends Component {
     
     return (
       <div className="address-list row">
+        <Modal isOpen={this.state.modal} toggle={this.toggleModal} className={this.props.className}>
+          <ModalHeader toggle={this.toggleModal}>
+            <div>
+              <h3>
+                Import Your Spreadsheet:
+              </h3>
+            </div>
+          </ModalHeader>
+          <ModalBody>
+            <CSVReader
+              cssClass="csv-import"
+              onFileLoaded={this.handleCsvImport}
+            />
+          </ModalBody>
+        </Modal>
         <div className="col-3 address-buttons">
-          <Modal isOpen={this.state.modal} toggle={this.toggleModal} className={this.props.className}>
-            <ModalHeader toggle={this.toggleModal}>
-              <div>
-                <h3>
-                  Import Your Spreadsheet:
-                </h3>
-              </div>
-            </ModalHeader>
-            <ModalBody>
-              <CSVReader
-                cssClass="csv-import"
-                onFileLoaded={this.handleCsvImport}
-              />
-            </ModalBody>
-          </Modal>
           <Button type="balance" color="success" size="lg"
             onClick={this.checkBalance}
           >
             Check Balance
           </Button>
-          <Button type="import" color="warning" size="lg"
+          <Button type="import" color="warning" size="lg" className="d-block"
             onClick={this.toggleModal}
           >
             Load Spreadsheet
