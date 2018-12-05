@@ -15,4 +15,5 @@ Todo list 10/12/18
 13) api network error checking
 ~~14) total addresses + total cyrpto coins + total fiat~~
 15) Modal Styling
+16)
 
