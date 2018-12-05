@@ -88,7 +88,7 @@ class Header extends Component {
               </h3>
               {this.props.checkBalanceState === 'checked' ? cryptoFiatRate : ''}
             </div>
-            <Ad />
+            {false ? <Ad /> : <div></div>}
           </div>
         </div>
     );
