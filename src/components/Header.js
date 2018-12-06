@@ -57,10 +57,10 @@ class Header extends Component {
 
     return (
         <div className="header row">
-          <div className="qrcode col-2">
+          <div className="qrcode col-sm-2">
             <QRCode value={this.state[cryptoSym]} renderAs={"svg"} className={"qrcode-canvas"} level="H" />
           </div>
-          <div className="col-10">
+          <div className="col-sm-10">
             <h1 className="donation-address" onClick={this.toggle}>
               <Clipboard text={this.state[cryptoSym]}>
                 {this.state[cryptoSym]}
@@ -78,7 +78,7 @@ class Header extends Component {
                   </Alert>
               </Popover>
             </h1>
-            <div className="col-10 text-center">
+            <div className="col-sm-10 text-center">
               <h3 className="slogan">Your Crypto Paper Wallet Checker ! 
                 {" "}
                 <CryptoDropdown 

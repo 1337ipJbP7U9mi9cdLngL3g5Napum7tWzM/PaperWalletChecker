@@ -231,7 +231,7 @@ class AddressList extends Component {
             />
           </ModalBody>
         </Modal>
-        <div className="col-3 address-buttons">
+        <div className="col-sm-3 address-buttons">
           <Button type="balance" color="success" size="lg"
             onClick={this.checkBalance}
           >
@@ -252,15 +252,15 @@ class AddressList extends Component {
                 Export Spreadsheet
             </CSVLink>
             <h5 className="export-filename">Export Filename : </h5>
-            <Input className="col-9" onChange={this.handleFilename}></Input>
+            <Input className="col-sm-9" onChange={this.handleFilename}></Input>
           </form>
         </div>
-        <div className="col-9">
-          <div className="input-form col-12">
+        <div className="col-sm-9">
+          <div className="input-form col-sm-12">
             <Form inline onSubmit={this.addAddress}>
-              <FormGroup className="col-12 row no-gutters">
-                <Input className="col-8" id="input-address-text" innerRef={(a) => this._inputElement = a} />
-                <div className="col-4 input-address-buttons">
+              <FormGroup className="col-sm-12 row no-gutters">
+                <Input className="col-sm-8" id="input-address-text" innerRef={(a) => this._inputElement = a} />
+                <div className="col-sm-4 input-address-buttons">
                   <Button className="input-address-submit" color="info" type="submit">Enter a New Paper Wallet</Button>
                   <Button id="Popover1" onClick={this.toggleInfo}>
                     <FontAwesomeIcon icon="question-circle" inverse className="" />
