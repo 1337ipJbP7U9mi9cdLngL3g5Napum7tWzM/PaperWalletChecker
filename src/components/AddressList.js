@@ -4,11 +4,13 @@ import CSVReader from 'react-csv-reader';
 import {CSVLink} from 'react-csv';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Form, FormGroup, Popover, PopoverHeader, PopoverBody,
-         Modal, ModalHeader, ModalBody, Table, Input } from 'reactstrap';
+         Modal, ModalHeader, ModalBody, Table, Input, InputGroup,
+         InputGroupAddon } from 'reactstrap';
 
 import '../styles/components/addresslist/addresslist.scss';
 import Addresses from './Addresses';
 import Totals from './Totals';
+import QrAddressReader from './QrAddressReader';
 import {bitcoinApi} from '../apis/bitcoin';
 import {bchApi} from '../apis/bitcoincash';
 import {dashApi} from '../apis/dash';
@@ -30,6 +32,7 @@ class AddressList extends Component {
       checkbalanceState: this.props.checkbalanceState,
       popoverOpenInfo: false,
       modal: false,
+      qrmodal: false,
       progressBar: 0
     };
     
@@ -39,6 +42,7 @@ class AddressList extends Component {
     this.deleteAddress = this.deleteAddress.bind(this);
     this.checkBalance = this.checkBalance.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.toggleQrModal = this.toggleQrModal.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
   }
   
@@ -57,6 +61,10 @@ class AddressList extends Component {
   
   toggleModal() {
     this.setState({modal: !this.state.modal});
+  }
+  
+  toggleQrModal() {
+    this.setState({qrmodal: !this.state.qrmodal});
   }
   
   toggleInfo() {
@@ -168,18 +176,23 @@ class AddressList extends Component {
       return null;
     });
   }
-
-  addAddress(event) {
+  
+  addAddress(event, result) {
+    if (event) {
+      event.preventDefault();
+    }
     const addObject = this.state.addresses;
+    console.log(result);
+    const address = this._inputElement.value !== '' ? this._inputElement.value.trim() : result || '';
     const checkDuplicateArray = (addObject.map(a => a.key));
-    const duplicate = checkDuplicateArray.includes(this._inputElement.value);
+    const duplicate = checkDuplicateArray.includes(address);
     
     if (duplicate) {
       alert("you have entered a duplicte address");
-    } else if (this._inputElement.value !== ""
-              && WAValidator.validate(this._inputElement.value, this.props.cryptoSym))  {
+    } else if (address !== ""
+              && WAValidator.validate(address, this.props.cryptoSym))  {
       var newAddress = {
-        key: this._inputElement.value,
+        key: address,
         cryptoAmount: '',
         fiatAmount: ''
       };
@@ -194,7 +207,10 @@ class AddressList extends Component {
     }
 
     this._inputElement.value = "";
-    event.preventDefault();
+    
+    if (!event) {
+      this.setState({qrmodal: !this.state.qrmodal});
+    }
   }
   
   deleteAddress(key) { 
@@ -216,6 +232,18 @@ class AddressList extends Component {
     
     return (
       <div className="address-list row">
+        <Modal isOpen={this.state.qrmodal} toggle={this.toggleQrModal} className="">
+          <ModalHeader toggle={this.toggleQrModal}>
+            <div>
+              <h3>
+                Qrcode Address Reader:
+              </h3>
+            </div>
+          </ModalHeader>
+          <ModalBody>
+            {this.state.qrmodal && <QrAddressReader addAddress={this.addAddress} />}
+          </ModalBody>
+        </Modal>
         <div className="col-3 address-buttons">
           <Modal isOpen={this.state.modal} toggle={this.toggleModal} className={this.props.className}>
             <ModalHeader toggle={this.toggleModal}>
@@ -259,26 +287,35 @@ class AddressList extends Component {
           <div className="input-form col-12">
             <Form inline onSubmit={this.addAddress}>
               <FormGroup className="col-12 row no-gutters">
-                <Input className="col-8" id="input-address-text" innerRef={(a) => this._inputElement = a} />
-                <div className="col-4 input-address-buttons">
-                  <Button className="input-address-submit" color="info" type="submit">Enter a New Paper Wallet</Button>
-                  <Button id="Popover1" onClick={this.toggleInfo}>
-                    <FontAwesomeIcon icon="question-circle" inverse className="" />
-                  </Button>
+                <InputGroup className="col-12">
+                  <InputGroupAddon addonType="prepend">
+                    <Button onClick={this.toggleQrModal} >
+                      <FontAwesomeIcon icon="qrcode" />
+                    </Button>              
+                  </InputGroupAddon>
+                  <Input className="" id="input-address-text" innerRef={(a) => this._inputElement = a} />
+                  <InputGroupAddon addonType="append">
+                    <Button className="input-address-submit" color="info" type="submit">Enter a New Paper Wallet</Button>
+                    <Button id="Popover1" onClick={this.toggleInfo}>
+                      <FontAwesomeIcon icon="question-circle" inverse className="" />
+                    </Button>
+                    <Popover className="popover" placement="bottom" isOpen={this.state.popoverOpenInfo}
+                             target="Popover1" toggle={this.toggleInfo}
+                    >
+                      <PopoverHeader className="text-center">Public Addresses Only</PopoverHeader>
+                      <PopoverBody>
+                        <ul>
+                          <li>Validates the Public Address</li>
+                          <li>Enter One Address at a Time</li>
+                          <li>You can Import Public Keys from a Spreadsheet</li>
+                          <li>Click on any Address to View a Qrcode</li>
+                        </ul>
+                      </PopoverBody>
+                    </Popover>
+                  </InputGroupAddon>
+                </InputGroup>
+                <div className="input-address-buttons">
                 </div>
-                <Popover className="popover" placement="bottom" isOpen={this.state.popoverOpenInfo}
-                         target="Popover1" toggle={this.toggleInfo}
-                >
-                  <PopoverHeader className="text-center">Public Addresses Only</PopoverHeader>
-                  <PopoverBody>
-                    <ul>
-                      <li>Validates the Public Address</li>
-                      <li>Enter One Address at a Time</li>
-                      <li>You can Import Public Keys from a Spreadsheet</li>
-                      <li>Click on any Address to View a Qrcode</li>
-                    </ul>
-                  </PopoverBody>
-                </Popover>
               </FormGroup>
             </Form>
           </div>

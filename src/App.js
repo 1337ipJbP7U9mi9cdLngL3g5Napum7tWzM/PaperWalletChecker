@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Header from './components/Header';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCopy, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faQuestionCircle, faQrcode } from '@fortawesome/free-solid-svg-icons';
 
 
 import AddressList from './components/AddressList';
 
-library.add(faCopy, faQuestionCircle);
+library.add(faCopy, faQuestionCircle, faQrcode);
 
 class App extends Component {
   constructor(props) {
