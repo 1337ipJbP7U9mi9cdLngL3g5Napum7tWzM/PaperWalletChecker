@@ -5,8 +5,7 @@ export const bchApi = async (addresses, resolve, reject) => {
   let addressRequests = [];
   
   addresses.forEach(address => {
-    addressRequests.push("https://api.blockchair.com/bitcoin-cash/dashboards/address/" 
-    + address);
+    addressRequests.push("https://api.blockchair.com/bitcoin-cash/dashboards/address/" + address);
   });
   
   function delay() {
@@ -15,13 +14,13 @@ export const bchApi = async (addresses, resolve, reject) => {
     });
   }
   
-  function axiosRequest() {
-    axios.get(addressRequests[i])
+  function axiosRequest(addressRequests, addresses) {
+    axios.get(addressRequests)
     .then((res) => {
       console.log(res);
-      const data = res.data.data[addresses[i]];
+      const data = res.data.data[addresses];
       console.log('data', data.address.balance);
-      addressesBalance[addresses[i]] = data.address.balance / 100000000;
+      addressesBalance[addresses] = data.address.balance / 100000000;
     }).catch((error) => {
       console.log(error);
     });
@@ -32,5 +31,6 @@ export const bchApi = async (addresses, resolve, reject) => {
     await axiosRequest(addressRequests[i], addresses[i]);
     await delay();
   }
+  console.log(addressesBalance);
   resolve(addressesBalance);
 };
