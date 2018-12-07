@@ -17,7 +17,7 @@ export default class CryptoDropdown extends React.Component {
         { name: "Bitcoin", sym: "btc", cryptoId: 1},
         { name: "Ethereum", sym: "eth", cryptoId: 1027},
         //{ name: "Ripple", sym: "xrp", cryptoId: 52},
-        { name: "BitcoinCash", sym: "bch", cryptoId: 1831},
+        { name: "Bitcoin-Cash", sym: "bch", cryptoId: 1831},
         { name: "Litecoin", sym: "ltc", cryptoId: 2},
         // { name: "Peercoin", sym: "ppc", cryptoId: 5},
         { name: "Dogecoin", sym: "doge", cryptoId: 74},

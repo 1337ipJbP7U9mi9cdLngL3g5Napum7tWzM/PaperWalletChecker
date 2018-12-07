@@ -117,6 +117,7 @@ class AddressList extends Component {
     
     Promise.all(balancePromises)
       .then((result) => {
+        console.log(result[1]);
         let i;
         for (i = 0; i < addresses.length; i++) {
           const addressBalance = parseFloat(result[1][addresses[i]]);
