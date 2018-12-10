@@ -12,14 +12,7 @@ import '../styles/components/addresslist/addresslist.scss';
 import Addresses from './Addresses';
 import Totals from './Totals';
 import QrAddressReader from './QrAddressReader';
-import {bitcoinApi} from '../apis/bitcoin';
-import {bchApi} from '../apis/bitcoincash';
-import {dashApi} from '../apis/dash';
-import {dogeApi} from '../apis/doge';
-import {ethApi} from '../apis/ethereum';
-import {litecoinApi} from '../apis/litecoin';
-import {zcashApi} from '../apis/zcash';
-import {fiatPriceCheck} from '../apis/fiat';
+import {allApis} from '../apis/allApis';
 
 class AddressList extends Component {
   constructor(props) {
@@ -83,43 +76,11 @@ class AddressList extends Component {
     const cryptoSym = this.props.cryptoSym;
     const cryptoName = this.props.cryptoName;
     
-    let fiatApis = new Promise(function(resolve, reject) {
-      fiatPriceCheck(cryptoName, handlefiatPrice, resolve, reject);
-    });
-    
-    let cryptoApis = new Promise(function(resolve, reject) {
-      switch(cryptoSym) {
-        case 'btc':
-          bitcoinApi(addresses, resolve, reject);
-          break;
-        case 'ltc':
-          litecoinApi(addresses, resolve, reject);
-          break;
-        case 'dash':
-          dashApi(addresses, resolve, reject);
-          break;
-        case 'zec':
-          zcashApi(addresses, resolve, reject);
-          break;
-        case 'doge':
-          dogeApi(addresses, resolve, reject);
-          break;
-        case 'bch':
-          bchApi(addresses, resolve, reject);
-          break;
-        case 'eth':
-          ethApi(addresses, resolve, reject);
-          break;
-        default:
-          console.log("didn't get either");  
-      }
-    });
-    
-    const balancePromises = [fiatApis, cryptoApis];
+    const balancePromises = allApis(addresses, cryptoName, cryptoSym, handlefiatPrice);
     
     Promise.all(balancePromises)
       .then((result) => {
-        console.log(result[1]);
+        // console.log(result[1]);
         let i;
         for (i = 0; i < addresses.length; i++) {
           const addressBalance = parseFloat(result[1][addresses[i]]);
