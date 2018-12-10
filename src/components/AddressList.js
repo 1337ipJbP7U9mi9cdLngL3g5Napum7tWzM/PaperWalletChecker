@@ -3,6 +3,7 @@ import WAValidator from 'wallet-address-validator';
 import CSVReader from 'react-csv-reader';
 import {CSVLink} from 'react-csv';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaGithub, FaReddit, FaBitcoin } from 'react-icons/fa';
 import { Button, Form, FormGroup, Popover, PopoverHeader, PopoverBody,
          Modal, ModalHeader, ModalBody, Table, Input, InputGroup,
          InputGroupAddon } from 'reactstrap';
@@ -44,6 +45,7 @@ class AddressList extends Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleQrModal = this.toggleQrModal.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
+    this.handleSocial = this.handleSocial.bind(this);
   }
   
   componentDidUpdate(prevProps) {
@@ -228,6 +230,26 @@ class AddressList extends Component {
     });
   }
   
+  handleSocial(social) {
+    switch(social) {
+      case "github": {
+        window.open('https://github.com/1337ipJbP7U9mi9cdLngL3g5Napum7tWzM/PaperWalletChecker', "_blank");
+        break;
+      }
+      case "reddit": {
+        window.open('https://reddit.com', '_blank');
+        break;
+      }
+      case "bitcoin": {
+        window.open('https://bitcointalk.org/', '_blank');
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  }
+  
   render(){
     const csvDownloadHeaders = [
       {label: 'Address', key: 'key'},
@@ -285,6 +307,23 @@ class AddressList extends Component {
           </CSVLink>
           <h5 className="export-filename">Export Filename : </h5>
           <Input className="col-9" onChange={this.handleFilename}></Input>
+          <div className="social-media">
+            <div className="col-4 d-inline">
+              <Button size="sm" onClick={() => this.handleSocial("github")}>
+                <FaGithub />
+              </Button>
+            </div>
+            <div className="col-4 d-inline">
+              <Button size="sm" onClick={() => this.handleSocial("reddit")}>
+                <FaReddit />
+              </Button>
+            </div>
+            <div className="col-4 d-inline">
+              <Button size="sm" onClick={() => this.handleSocial("bitcoin")}>
+                <FaBitcoin />
+              </Button>
+            </div>
+          </div>
         </div>
         <div className="col-9">
           <div className="input-form col-12">

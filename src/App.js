@@ -3,7 +3,6 @@ import Header from './components/Header';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCopy, faQuestionCircle, faQrcode } from '@fortawesome/free-solid-svg-icons';
 
-
 import AddressList from './components/AddressList';
 
 library.add(faCopy, faQuestionCircle, faQrcode);
