@@ -45,17 +45,21 @@ class App extends Component {
   }
   
   handleFiatPrice(price, current_prices) {
-    this.setState(() => {
-      return {
-        currentPriceFiat: current_prices
-      };
-    });
+    if (current_prices) {
+      this.setState(() => {
+        return {
+          currentPriceFiat: current_prices
+        };
+      });
+    }
     
-    this.setState(() => {
-      return {
-        fiatPrice: this.state.currentPriceFiat[this.state.fiatSym]
-      };
-    });
+    if (this.state.currentPriceFiat !== {}) {
+      this.setState(() => {
+        return {
+          fiatPrice: this.state.currentPriceFiat[this.state.fiatSym]
+        };
+      });
+    }
   }
   
   render() {
