@@ -58,31 +58,18 @@ class AddressList extends Component {
   updateAddresses(prevProps) {
     if (prevProps.fiatSym !== this.props.fiatSym) {
       const addresses = this.state.addresses.map(a => a.key);
-      console.log('addresses object:', addresses);
       let i;
       for (i = 0; i < addresses.length; i++) {
         const updateAddress = addresses[i];
-        console.log('address to update:', updateAddress);
         const index = this.state.addresses.findIndex(x => x.key === updateAddress);
-        console.log("addresses' state:", this.state.addresses[index].cryptoAmount);
-        // const addressAttributes = {
         const newFiatAmount = this.state.addresses[index].cryptoAmount * this.props.fiatPrice;
-        // };
-        // console.log('addressAttributes', addressAttributes);
         this.setState((prevState) => {
           const address = prevState.addresses[index];
-          console.log('address:', address);
           address.fiatAmount = newFiatAmount;
           return ({
             address
           });
-          // addresses: [
-          //   ...this.state.addresses.slice(0, index),
-          //   Object.assign({}, this.state.addresses[index], addressAttributes),
-          //   ...this.state.addresses.slice(index + 1)
-          // ]
         });
-        console.log("after setstate");
       }
     }
   }
