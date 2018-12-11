@@ -6,6 +6,7 @@ import {Alert, Popover} from 'reactstrap';
 
 import "../styles/components/header/header.scss";
 import CryptoDropdown from "./CryptoDropdown";
+import FiatDropdown from "./FiatDropdown";
 import Ad from "./Ad";
 
 class Header extends Component {
@@ -34,7 +35,7 @@ class Header extends Component {
       zcl: "ZClassic Paper Wallet Checker!",
       dcr: "Decred Paper Wallet Checker!",
       dgb: "DKkftwDYUQpMZCcDmcgtbLnCk5sf1qV9Hi",
-
+      
       popoverOpen: false
     };
     
@@ -49,9 +50,12 @@ class Header extends Component {
   
   render(){
     const cryptoSym = this.props.cryptoSym;
+    const fiatPrice = this.props.fiatPrice;
     const cryptoFiatRate = (
       <h3 className="text-center" id="fiat-current-price">
-        Current {this.props.cryptoSym.toUpperCase()} / USD : ${this.props.fiatPrice.toFixed(2)}
+        Current {this.props.cryptoSym.toUpperCase()}
+        / USD : $
+        {fiatPrice ? fiatPrice.toFixed(2) : ""}
       </h3>
     );
 
@@ -84,6 +88,9 @@ class Header extends Component {
                 <CryptoDropdown 
                   handleCryptoSymId={this.props.handleCryptoSymId} 
                   handleCheckBalanceState={this.props.handleCheckBalanceState}
+                />
+                <FiatDropdown
+                  handleFiatSym={this.props.handleFiatSym}
                 />
               </h3>
               {this.props.checkBalanceState === 'checked' ? cryptoFiatRate : ''}

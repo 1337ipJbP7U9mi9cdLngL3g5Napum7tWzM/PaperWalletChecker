@@ -43,9 +43,11 @@ export default class CryptoDropdown extends React.Component {
   }
   
   cryptoList(crypto) {
-    return <DropdownItem key={crypto.name} onClick={() => this.toggleCrypto(crypto)}>
+    return (
+      <DropdownItem key={crypto.name} onClick={() => this.toggleCrypto(crypto)}>
         {crypto.name}
-    </DropdownItem>
+      </DropdownItem>
+    );
   }
   
   toggleCrypto(crypto) {

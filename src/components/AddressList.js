@@ -43,6 +43,7 @@ class AddressList extends Component {
   
   componentDidUpdate(prevProps) {
     this.clearAddresses(prevProps);
+    this.updateAddresses(prevProps);
   }
   
 
@@ -50,7 +51,39 @@ class AddressList extends Component {
     if (prevProps.cryptoSym !== this.props.cryptoSym) {
       this.setState({addresses: []});
       this.props.handleCheckBalanceState("unchecked");
-      this.props.handlefiatPrice(0);
+      this.props.handleFiatPrice(0);
+    }
+  }
+  
+  updateAddresses(prevProps) {
+    if (prevProps.fiatSym !== this.props.fiatSym) {
+      const addresses = this.state.addresses.map(a => a.key);
+      console.log('addresses object:', addresses);
+      let i;
+      for (i = 0; i < addresses.length; i++) {
+        const updateAddress = addresses[i];
+        console.log('address to update:', updateAddress);
+        const index = this.state.addresses.findIndex(x => x.key === updateAddress);
+        console.log("addresses' state:", this.state.addresses[index].cryptoAmount);
+        // const addressAttributes = {
+        const newFiatAmount = this.state.addresses[index].cryptoAmount * this.props.fiatPrice;
+        // };
+        // console.log('addressAttributes', addressAttributes);
+        this.setState((prevState) => {
+          const address = prevState.addresses[index];
+          console.log('address:', address);
+          address.fiatAmount = newFiatAmount;
+          return ({
+            address
+          });
+          // addresses: [
+          //   ...this.state.addresses.slice(0, index),
+          //   Object.assign({}, this.state.addresses[index], addressAttributes),
+          //   ...this.state.addresses.slice(index + 1)
+          // ]
+        });
+        console.log("after setstate");
+      }
     }
   }
   
@@ -71,12 +104,13 @@ class AddressList extends Component {
   checkBalance(event) {
     this.props.handleCheckBalanceState("checking");
     // const cryptoId = this.props.cryptoId;
-    const handlefiatPrice = this.props.handlefiatPrice;
+    const fiatSym = this.props.fiatSym;
+    const handleFiatPrice = this.props.handleFiatPrice;
     const addresses = this.state.addresses.map(a => a.key);
     const cryptoSym = this.props.cryptoSym;
     const cryptoName = this.props.cryptoName;
     
-    const balancePromises = allApis(addresses, cryptoName, cryptoSym, handlefiatPrice);
+    const balancePromises = allApis(addresses, cryptoName, cryptoSym, fiatSym, handleFiatPrice);
     
     Promise.all(balancePromises)
       .then((result) => {
@@ -89,14 +123,14 @@ class AddressList extends Component {
           const addressAttributes = {
             cryptoAmount: addressBalance,
             fiatAmount: addressBalance * this.props.fiatPrice
-        };
-        this.setState({
-          addresses: [
-            ...this.state.addresses.slice(0, index),
-            Object.assign({}, this.state.addresses[index], addressAttributes),
-            ...this.state.addresses.slice(index + 1)
-          ]
-        });
+          };
+          this.setState({
+            addresses: [
+              ...this.state.addresses.slice(0, index),
+              Object.assign({}, this.state.addresses[index], addressAttributes),
+              ...this.state.addresses.slice(index + 1)
+            ]
+          });
         }
         this.props.handleCheckBalanceState("checked");
       });
