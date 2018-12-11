@@ -344,7 +344,8 @@ class AddressList extends Component {
             </Form>
           </div>
           <Table hover={true}>
-            <Totals 
+            <Totals   
+              fiatSym={this.props.fiatSym}
               addresses={this.state.addresses}
               checkBalanceState={this.props.checkBalanceState}
               cryptoSym={this.props.cryptoSym}

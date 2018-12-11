@@ -64,6 +64,7 @@ class App extends Component {
           <Header 
             fiatPrice={this.state.fiatPrice}
             handlefiatPrice={this.state.handleFiatPrice}
+            fiatSym={this.state.fiatSym}
             handleFiatSym={this.handleFiatSym}
             cryptoSym={this.state.cryptoSym}
             handleCryptoSymId={this.handleCryptoSymId}
