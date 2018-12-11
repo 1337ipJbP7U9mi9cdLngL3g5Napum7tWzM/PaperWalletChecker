@@ -7,9 +7,9 @@ import {litecoinApi} from './litecoin';
 import {zcashApi} from './zcash';
 import {fiatPriceCheck} from './fiat';
 
-export const allApis = (addresses, cryptoName, cryptoSym, handlefiatPrice) => {
+export const allApis = (addresses, cryptoName, cryptoSym, fiatSym, handleFiatPrice) => {
   let fiatApis = new Promise(function(resolve, reject) {
-    fiatPriceCheck(cryptoName, handlefiatPrice, resolve, reject);
+    fiatPriceCheck(cryptoName, fiatSym, handleFiatPrice, resolve, reject);
   });
   
   let cryptoApis = new Promise(function(resolve, reject) {
