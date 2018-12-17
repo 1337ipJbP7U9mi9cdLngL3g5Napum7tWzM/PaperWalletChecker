@@ -87,7 +87,7 @@ class AddressList extends Component {
       popoverOpenInfo: !this.state.popoverOpenInfo
     });
   }
-
+  
   checkBalance(event) {
     this.props.handleCheckBalanceState("checking");
     // const cryptoId = this.props.cryptoId;
