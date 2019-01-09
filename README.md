@@ -3,7 +3,7 @@ is an open source, React web app, that provides an easy and secure way to check
 the balances of your paper wallets.  Presently, Paper Wallet Checker (PWC) 
 covers all the most important and popular cryptocurrencies, 
 including BTC, ETH, BCH, Dash, ZCash, and more.  The user does not need to
-register with PWC and no client data is stored.  
+register with PWC and no personal data is stored.  
 
 Paper Wallet Checker allows the user to enter multiple addresses.  PWC verifies 
 that the addresses are valid and not private addresses, before checking the
