@@ -48,7 +48,7 @@ class Totals extends Component {
         <tr>
           <th>Addresses: {this.handleTotalAddresses()}</th>
           <th>{this.props.cryptoSym.toUpperCase()}: {this.handleTotalCrypto()}</th>
-          <th>USD: {this.handleTotalFiat()}</th>
+          <th>{this.props.fiatSym.toUpperCase()}: {this.handleTotalFiat()}</th>
           <th>Remove</th>
         </tr>
       </thead>
