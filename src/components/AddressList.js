@@ -219,11 +219,11 @@ class AddressList extends Component {
         break;
       }
       case "reddit": {
-        window.open('https://reddit.com', '_blank');
+        window.open('https://www.reddit.com/r/btc/comments/ae9b2t/paper_wallet_checker_simple_and_easy_way_to_check/', '_blank');
         break;
       }
       case "bitcoin": {
-        window.open('https://bitcointalk.org/', '_blank');
+        window.open('https://bitcointalk.org/index.php?topic=5090189.new;topicseen', '_blank');
         break;
       }
       default: {
