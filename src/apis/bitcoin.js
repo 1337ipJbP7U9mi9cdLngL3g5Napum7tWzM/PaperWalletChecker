@@ -14,18 +14,22 @@ export const bitcoinApi = async (addresses, resolve, reject) => {
     }
   }
   
-  axios.get("https://blockchain.info/balance?active=" + addressesOld.toString().replace(/,/g, '|') + "&cors=true")
+  // Old Address types of everything before bech32 format
+  
+  await axios.get("https://blockchain.info/balance?active=" + addressesOld.toString().replace(/,/g, '|') + "&cors=true")
   .then(res => {
     const data = res.data;
     
-    let i;
     for (i = 0; i < addressesOld.length; i++) {
       const addressBalance = data[addressesOld[i]].final_balance / 100000000;
-      addressesBalance[addressesOld[i].toString()] = addressBalance.toString();
+      addressesBalance[addressesOld[i].toString()] = addressBalance;
     }
   }).catch((error) => {
     console.log(error);
   });
+  
+  
+  // New bech32 address format api request
     
   let addressRequests = [];
   addressesBech.forEach(address => {
@@ -39,22 +43,21 @@ export const bitcoinApi = async (addresses, resolve, reject) => {
     });
   }
   
-  function axiosRequest() {
-    axios.get(addressRequests[j])
+  function axiosRequest(addressRequests, addresses) {
+    axios.get(addressRequests)
     .then((res) => {
-      const data = res.data.data[addresses[j]];
-      addressesBalance[addresses[j]] = data.address.balance / 100000000;
+      const data = res.data.data[addresses];
+      addressesBalance[addresses] = data.address.balance / 100000000;
     }).catch((error) => {
       console.log(error);
     });
   }
   
-  let j;
-  for (j=0; j<addressRequests.length; j++) {
-    await axiosRequest(addressRequests[j], addresses[j]);
+  for (i=0; i<addressRequests.length; i++) {
+    await axiosRequest(addressRequests[i], addresses[i]);
     await delay();
   }
   
-  resolve(addressesBalance);  
+  resolve(addressesBalance);
 };
   
