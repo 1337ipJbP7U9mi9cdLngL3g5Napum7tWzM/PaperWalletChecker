@@ -36,15 +36,23 @@ class Header extends Component {
       dcr: "Decred Paper Wallet Checker!",
       dgb: "DKkftwDYUQpMZCcDmcgtbLnCk5sf1qV9Hi",
       
-      popoverOpen: false
+      popoverOpen: false,
+      popoverOpenAd: false,
     };
     
     this.toggle = this.toggle.bind(this);
+    this.toggleAd = this.toggleAd.bind(this);
   }
   
   toggle() {
     this.setState({
       popoverOpen: !this.state.popoverOpen
+    });
+  }
+  
+  toggleAd() {
+    this.setState({
+      popoverOpenAd: !this.state.popoverOpenAd
     });
   }
   
@@ -95,7 +103,7 @@ class Header extends Component {
               </h3>
               {this.props.checkBalanceState === 'checked' ? cryptoFiatRate : ''}
             </div>
-            <Ad />
+            <Ad popoverOpenAd={this.state.popoverOpenAd} toggleAd={this.toggleAd}/>
           </div>
         </div>
     );
