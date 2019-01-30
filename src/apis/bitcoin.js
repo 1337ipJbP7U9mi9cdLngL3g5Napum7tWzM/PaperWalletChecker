@@ -51,7 +51,7 @@ export const bitcoinApi = async (addresses, resolve, reject) => {
   
   let j;
   for (j=0; j<addressRequests.length; j++) {
-    await axiosRequest(addressRequests[j], addresses[i]);
+    await axiosRequest(addressRequests[j], addresses[j]);
     await delay();
   }
   
