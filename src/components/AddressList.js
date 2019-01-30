@@ -3,7 +3,7 @@ import WAValidator from 'wallet-address-validator';
 import CSVReader from 'react-csv-reader';
 import {CSVLink} from 'react-csv';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FaGithub, FaReddit, FaBitcoin } from 'react-icons/fa';
+import { FaGithub, FaReddit, FaBitcoin, FaSync } from 'react-icons/fa';
 import { Button, Form, FormGroup, Popover, PopoverHeader, PopoverBody,
          Modal, ModalHeader, ModalBody, Table, Input, InputGroup,
          InputGroupAddon } from 'reactstrap';
@@ -23,7 +23,6 @@ class AddressList extends Component {
       cryptoSym: this.props.cryptoSym,
       cryptoId: this.props.cryptoId,
       filename: 'PaperWalletChecker.csv',
-      checkbalanceState: this.props.checkbalanceState,
       popoverOpenInfo: false,
       modal: false,
       qrmodal: false,
@@ -270,12 +269,14 @@ class AddressList extends Component {
         </Modal>
         <div className="col-3 address-buttons">
           <Button type="balance" color="success" size="lg"
-            onClick={this.checkBalance}
+            onClick={this.checkBalance} disabled={this.props.checkBalanceState === 'checking'}
           >
-            Check Balance
+            { (this.props.checkBalanceState !== 'checking') && "Check Balance" }
+            { (this.props.checkBalanceState === 'checking') && "Checking Balance  " }
+            { (this.props.checkBalanceState === 'checking') && <FaSync className={"fa-spin"} /> }
           </Button>
           <Button type="import" color="warning" size="lg" className="d-block"
-            onClick={this.toggleModal}
+            onClick={this.toggleModal} 
           >
             Load Spreadsheet
           </Button>

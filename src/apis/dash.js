@@ -18,9 +18,7 @@ export const dashApi = async (addresses, resolve, reject) => {
   function axiosRequest(addressRequests, addresses) {
     axios.get(addressRequests)
     .then((res) => {
-      console.log(res);
       const data = res.data.balance;
-      console.log('data', data);
       addressesBalance[addresses] = data / 100000000;
     }).catch((error) => {
       console.log(error);
@@ -33,6 +31,5 @@ export const dashApi = async (addresses, resolve, reject) => {
     await delay();
   }
   resolve(addressesBalance);
-  console.log('addressesBalance', addressesBalance)
 };
   
