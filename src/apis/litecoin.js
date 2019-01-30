@@ -17,9 +17,7 @@ export const litecoinApi = async (addresses, resolve, reject) => {
   function axiosRequest(addressRequests, addresses) {
     axios.get(addressRequests)
     .then((res) => {
-      console.log(res);
       const data = res.data.data[addresses];
-      console.log('data', data.address.balance);
       addressesBalance[addresses] = data.address.balance / 100000000;
     }).catch((error) => {
       console.log(error);
