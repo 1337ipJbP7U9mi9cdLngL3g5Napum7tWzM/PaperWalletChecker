@@ -12,7 +12,7 @@ import Ad from "./Ad";
 class Header extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       btc: "1337ipJbP7U9mi9cdLngL3g5Napum7tWzM",
       eth: "0x94483b123b422d2Ab61fC459118667513956144E",
@@ -35,33 +35,33 @@ class Header extends Component {
       zcl: "ZClassic Paper Wallet Checker!",
       dcr: "Decred Paper Wallet Checker!",
       dgb: "DKkftwDYUQpMZCcDmcgtbLnCk5sf1qV9Hi",
-      
+
       popoverOpen: false,
       popoverOpenAd: false,
     };
-    
+
     this.toggle = this.toggle.bind(this);
     this.toggleAd = this.toggleAd.bind(this);
   }
-  
+
   toggle() {
     this.setState({
       popoverOpen: !this.state.popoverOpen
     });
   }
-  
+
   toggleAd() {
     this.setState({
       popoverOpenAd: !this.state.popoverOpenAd
     });
   }
-  
+
   render(){
     const cryptoSym = this.props.cryptoSym;
     const fiatPrice = this.props.fiatPrice;
     const cryptoFiatRate = (
       <h3 className="text-center" id="fiat-current-price">
-        {`Current ${this.props.cryptoSym.toUpperCase()} / 
+        {`Current ${this.props.cryptoSym.toUpperCase()} /
         ${this.props.fiatSym.toUpperCase()} : ${fiatPrice ? fiatPrice.toFixed(2) : ""}`
         }
       </h3>
@@ -77,7 +77,7 @@ class Header extends Component {
               <Clipboard text={this.state[cryptoSym]}>
                 {this.state[cryptoSym]}
                 {" "}
-                <FontAwesomeIcon icon="copy" className="copy-icon" 
+                <FontAwesomeIcon icon="copy" className="copy-icon"
                                  id="PopoverAddressHeader"
                 />
               </Clipboard>
@@ -91,10 +91,10 @@ class Header extends Component {
               </Popover>
             </h1>
             <div className="col-10 text-center">
-              <h3 className="slogan">Your Crypto Paper Wallet Checker ! 
+              <h3 className="slogan">Your Crypto Paper Wallet Checker !
                 {" "}
-                <CryptoDropdown 
-                  handleCryptoSymId={this.props.handleCryptoSymId} 
+                <CryptoDropdown
+                  handleCryptoSymId={this.props.handleCryptoSymId}
                   handleCheckBalanceState={this.props.handleCheckBalanceState}
                 />
                 <FiatDropdown

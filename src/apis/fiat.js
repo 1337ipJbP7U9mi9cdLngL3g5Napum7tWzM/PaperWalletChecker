@@ -5,7 +5,7 @@ export const fiatPriceCheck = (cryptoName, fiatSym, handleFiatPrice, resolve, re
   .then(res => {
     // console.log(res.data.market_data.current_price);
     const current_prices = res.data.market_data.current_price;
-    
+
     handleFiatPrice(current_prices[fiatSym], current_prices);
     resolve('Fiat Done');
   }).catch(error => {
