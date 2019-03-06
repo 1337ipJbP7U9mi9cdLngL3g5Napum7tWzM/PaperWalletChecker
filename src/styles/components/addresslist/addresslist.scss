@@ -3,6 +3,10 @@
   font-size: 1.09vw;
 }
 
+.table > .theList {
+  color: white;
+}
+
 .export-filename {
   font-size: 1.3rem;
   font-weight: 600;
@@ -11,10 +15,6 @@
 
 .input-form {
   font-size: 1.09vw;
-}
-
-#input-address-text {
-  // width: 60%;
 }
 
 .input-address-buttons > .btn {

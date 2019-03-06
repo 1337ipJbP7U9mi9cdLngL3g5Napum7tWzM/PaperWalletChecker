@@ -5,14 +5,14 @@ import '../styles/components/totals/totals.scss';
 class Totals extends Component {
   handleTotalAddresses()  {
     const totalAddresses = this.props.addresses.length;
-    
+
     return (totalAddresses === 0 ? '' : totalAddresses);
   }
-  
+
   handleTotalCrypto() {
     if (this.props.checkBalanceState === 'checked') {
       let totalCrypto = 0;
-  
+
       this.props.addresses.map(addressObject => {
         if (addressObject.cryptoAmount !== '') {
           totalCrypto += addressObject.cryptoAmount;
@@ -24,27 +24,27 @@ class Totals extends Component {
       );
     }
   }
-  
+
   handleTotalFiat() {
     if (this.props.checkBalanceState === 'checked') {
       let totalFiat = 0;
-  
+
       this.props.addresses.map(addressObject => {
         if (addressObject.fiatAmount !== '') {
           totalFiat += addressObject.fiatAmount;
         }
         return 0;
       });
-      
+
       return (
         this.props.checkBalanceState === 'checked' ? '$' + totalFiat.toFixed(2) : ''
       );
     }
   }
-    
+
   render(props) {
     return(
-      <thead>
+      <thead className="table-text">
         <tr>
           <th>Addresses: {this.handleTotalAddresses()}</th>
           <th>{this.props.cryptoSym.toUpperCase()}: {this.handleTotalCrypto()}</th>

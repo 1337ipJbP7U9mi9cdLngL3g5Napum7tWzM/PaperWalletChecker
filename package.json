@@ -19,7 +19,7 @@
     "react-dom": "^16.6.3",
     "react-icons": "^3.2.2",
     "react-qr-reader": "^2.1.1",
-    "react-scripts": "2.1.1",
+    "react-scripts": "2.1.5",
     "reactstrap": "^6.5.0",
     "wallet-address-validator": "^0.2.4"
   },
