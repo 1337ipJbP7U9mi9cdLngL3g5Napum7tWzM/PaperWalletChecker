@@ -3,7 +3,7 @@ import WAValidator from 'wallet-address-validator';
 import CSVReader from 'react-csv-reader';
 import {CSVLink} from 'react-csv';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FaGithub, FaReddit, FaBitcoin, FaSync } from 'react-icons/fa';
+import { FaGithub, FaReddit, FaBitcoin, FaSync, FaYoutube } from 'react-icons/fa';
 import { Button, Form, FormGroup, Popover, PopoverHeader, PopoverBody,
          Modal, ModalHeader, ModalBody, Table, Input, InputGroup,
          InputGroupAddon } from 'reactstrap';
@@ -305,6 +305,13 @@ class AddressList extends Component {
             <div className="col-4 d-inline">
               <Button size="sm" onClick={() => this.handleSocial("bitcoin")}>
                 <FaBitcoin />
+              </Button>
+            </div>
+          </div>
+          <div className="social-media">
+            <div className="col-4 d-inline">
+              <Button size="sm" onClick={() => window.open('https://youtu.be/_l7jr9-o-NQ', "_blank")}>
+                <FaYoutube />
               </Button>
             </div>
           </div>
