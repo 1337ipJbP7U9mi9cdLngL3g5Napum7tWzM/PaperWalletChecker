@@ -11,6 +11,7 @@ import { Button, Form, FormGroup, Popover, PopoverHeader, PopoverBody,
 import '../styles/components/addresslist/addresslist.scss';
 import Addresses from './Addresses';
 import Totals from './Totals';
+import Ad2 from './Ad2';
 import QrAddressReader from './QrAddressReader';
 import {allApis} from '../apis/allApis';
 
@@ -28,7 +29,7 @@ class AddressList extends Component {
       qrmodal: false,
       progressBar: 0
     };
-    
+
     this.handleFilename = this.handleFilename.bind(this);
     this.handleCsvImport = this.handleCsvImport.bind(this);
     this.addAddress = this.addAddress.bind(this);
@@ -39,12 +40,12 @@ class AddressList extends Component {
     this.toggleInfo = this.toggleInfo.bind(this);
     this.handleSocial = this.handleSocial.bind(this);
   }
-  
+
   componentDidUpdate(prevProps) {
     this.clearAddresses(prevProps);
     this.updateAddresses(prevProps);
   }
-  
+
 
   clearAddresses(prevProps) {
     if (prevProps.cryptoSym !== this.props.cryptoSym) {
@@ -53,7 +54,7 @@ class AddressList extends Component {
       this.props.handleFiatPrice(0);
     }
   }
-  
+
   updateAddresses(prevProps) {
     if (prevProps.fiatSym !== this.props.fiatSym) {
       const addresses = this.state.addresses.map(a => a.key);
@@ -72,21 +73,21 @@ class AddressList extends Component {
       }
     }
   }
-  
+
   toggleModal() {
     this.setState({modal: !this.state.modal});
   }
-  
+
   toggleQrModal() {
     this.setState({qrmodal: !this.state.qrmodal});
   }
-  
+
   toggleInfo() {
     this.setState({
       popoverOpenInfo: !this.state.popoverOpenInfo
     });
   }
-  
+
   checkBalance(event) {
     this.props.handleCheckBalanceState("checking");
     // const cryptoId = this.props.cryptoId;
@@ -95,9 +96,9 @@ class AddressList extends Component {
     const addresses = this.state.addresses.map(a => a.key);
     const cryptoSym = this.props.cryptoSym;
     const cryptoName = this.props.cryptoName;
-    
+
     const balancePromises = allApis(addresses, cryptoName, cryptoSym, fiatSym, handleFiatPrice);
-    
+
     Promise.all(balancePromises)
       .then((result) => {
         // console.log(result[1]);
@@ -120,24 +121,24 @@ class AddressList extends Component {
         }
         this.props.handleCheckBalanceState("checked");
       });
-    
+
     event.preventDefault();
   }
-  
+
   handleFilename(event) {
     this.setState({
-      filename: 
-        event.target.value.includes('.csv') ? 
+      filename:
+        event.target.value.includes('.csv') ?
           event.target.value : event.target.value  + '.csv'
     });
   }
-  
+
   handleCsvImport(data) {
     data.map((row) => {
       row.map((col) => {
         const addObject = this.state.addresses;
         const checkDuplicateArray = (addObject.map(a => a.key));
-        
+
         if (WAValidator.validate(col.trim(), this.props.cryptoSym)) {
           if (checkDuplicateArray.includes(col.trim())) {
             alert("you have entered a duplicte address");
@@ -147,7 +148,7 @@ class AddressList extends Component {
               cryptoAmount: '',
               fiatAmount: ''
             };
-            
+
             this.setState((prevState) => {
               return {
                 addresses: prevState.addresses.concat(newAddress),
@@ -164,7 +165,7 @@ class AddressList extends Component {
       return null;
     });
   }
-  
+
   addAddress(event, result) {
     if (event) {
       event.preventDefault();
@@ -174,7 +175,7 @@ class AddressList extends Component {
     const address = this._inputElement.value !== '' ? this._inputElement.value.trim() : result || '';
     const checkDuplicateArray = (addObject.map(a => a.key));
     const duplicate = checkDuplicateArray.includes(address);
-    
+
     if (duplicate) {
       alert("you have entered a duplicte address");
     } else if (address !== ""
@@ -195,13 +196,13 @@ class AddressList extends Component {
     }
 
     this._inputElement.value = "";
-    
+
     if (!event) {
       this.setState({qrmodal: !this.state.qrmodal});
     }
   }
-  
-  deleteAddress(key) { 
+
+  deleteAddress(key) {
     var filteredAddresses = this.state.addresses.filter(function (address) {
       return (address.key !== key);
     });
@@ -210,7 +211,7 @@ class AddressList extends Component {
       addresses: filteredAddresses
     });
   }
-  
+
   handleSocial(social) {
     switch(social) {
       case "github": {
@@ -230,14 +231,14 @@ class AddressList extends Component {
       }
     }
   }
-  
+
   render(){
     const csvDownloadHeaders = [
       {label: 'Address', key: 'key'},
       {label: 'btc:', key: 'cryptoAmount'},
       {label: 'USD:', key: 'fiatAmount'}
     ];
-    
+
     return (
       <div className="address-list row">
         <Modal isOpen={this.state.modal} toggle={this.toggleModal} className={this.props.className}>
@@ -276,11 +277,11 @@ class AddressList extends Component {
             { (this.props.checkBalanceState === 'checking') && <FaSync className={"fa-spin"} /> }
           </Button>
           <Button type="import" color="warning" size="lg" className="d-block"
-            onClick={this.toggleModal} 
+            onClick={this.toggleModal}
           >
             Load Spreadsheet
           </Button>
-          <CSVLink data={this.state.addresses} 
+          <CSVLink data={this.state.addresses}
             filename={this.state.filename}
             className="btn btn-lg btn-primary"
             headers={csvDownloadHeaders}
@@ -307,6 +308,7 @@ class AddressList extends Component {
               </Button>
             </div>
           </div>
+          <Ad2 />
         </div>
         <div className="col-9">
           <div className="input-form col-12">
@@ -316,7 +318,7 @@ class AddressList extends Component {
                   <InputGroupAddon addonType="prepend">
                     <Button onClick={this.toggleQrModal} >
                       <FontAwesomeIcon icon="qrcode" />
-                    </Button>              
+                    </Button>
                   </InputGroupAddon>
                   <Input className="" id="input-address-text" innerRef={(a) => this._inputElement = a} />
                   <InputGroupAddon addonType="append">
@@ -345,7 +347,7 @@ class AddressList extends Component {
             </Form>
           </div>
           <Table hover={true}>
-            <Totals   
+            <Totals
               fiatSym={this.props.fiatSym}
               addresses={this.state.addresses}
               checkBalanceState={this.props.checkBalanceState}
