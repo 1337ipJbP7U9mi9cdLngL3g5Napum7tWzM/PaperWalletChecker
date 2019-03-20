@@ -61,8 +61,9 @@ class Header extends Component {
     const fiatPrice = this.props.fiatPrice;
     const cryptoFiatRate = (
       <h3 className="text-center" id="fiat-current-price">
-        {`Current ${this.props.cryptoSym.toUpperCase()} /
-        ${this.props.fiatSym.toUpperCase()} : ${fiatPrice ? fiatPrice.toFixed(2) : ""}`
+        {`Current ${this.props.fiatSym.toUpperCase()} /
+           ${this.props.cryptoSym.toUpperCase()} :
+           ${fiatPrice ? fiatPrice.toFixed(2) : ""}`
         }
       </h3>
     );
