@@ -3,11 +3,7 @@ import WAValidator from 'wallet-address-validator';
 import CSVReader from 'react-csv-reader';
 import {CSVLink} from 'react-csv';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-<<<<<<< HEAD
-import { FaGithub, FaReddit, FaBitcoin, FaSync } from 'react-icons/fa';
-=======
 import { FaGithub, FaReddit, FaBitcoin, FaSync, FaYoutube } from 'react-icons/fa';
->>>>>>> 06b39160a693f35ca36765b135d59b6cb91c0e17
 import { Button, Form, FormGroup, Popover, PopoverHeader, PopoverBody,
          Modal, ModalHeader, ModalBody, Table, Input, InputGroup,
          InputGroupAddon } from 'reactstrap';
@@ -58,11 +54,7 @@ class AddressList extends Component {
       this.props.handleFiatPrice(0);
     }
   }
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 06b39160a693f35ca36765b135d59b6cb91c0e17
   updateAddresses(prevProps) {
     if (prevProps.fiatSym !== this.props.fiatSym) {
       const addresses = this.state.addresses.map(a => a.key);
@@ -95,7 +87,7 @@ class AddressList extends Component {
       popoverOpenInfo: !this.state.popoverOpenInfo
     });
   }
-  
+
   checkBalance(event) {
     this.props.handleCheckBalanceState("checking");
     // const cryptoId = this.props.cryptoId;
@@ -104,15 +96,9 @@ class AddressList extends Component {
     const addresses = this.state.addresses.map(a => a.key);
     const cryptoSym = this.props.cryptoSym;
     const cryptoName = this.props.cryptoName;
-<<<<<<< HEAD
-    
-    const balancePromises = allApis(addresses, cryptoName, cryptoSym, fiatSym, handleFiatPrice);
-    
-=======
-
     const balancePromises = allApis(addresses, cryptoName, cryptoSym, fiatSym, handleFiatPrice);
 
->>>>>>> 06b39160a693f35ca36765b135d59b6cb91c0e17
+
     Promise.all(balancePromises)
       .then((result) => {
         // console.log(result[1]);
@@ -141,13 +127,8 @@ class AddressList extends Component {
 
   handleFilename(event) {
     this.setState({
-<<<<<<< HEAD
-      filename: 
-        event.target.value.includes('.csv') ? 
-=======
       filename:
         event.target.value.includes('.csv') ?
->>>>>>> 06b39160a693f35ca36765b135d59b6cb91c0e17
           event.target.value : event.target.value  + '.csv'
     });
   }
@@ -230,11 +211,7 @@ class AddressList extends Component {
       addresses: filteredAddresses
     });
   }
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 06b39160a693f35ca36765b135d59b6cb91c0e17
   handleSocial(social) {
     switch(social) {
       case "github": {
@@ -254,11 +231,7 @@ class AddressList extends Component {
       }
     }
   }
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 06b39160a693f35ca36765b135d59b6cb91c0e17
   render(){
     const csvDownloadHeaders = [
       {label: 'Address', key: 'key'},
@@ -304,15 +277,11 @@ class AddressList extends Component {
             { (this.props.checkBalanceState === 'checking') && <FaSync className={"fa-spin"} /> }
           </Button>
           <Button type="import" color="warning" size="lg" className="d-block"
-            onClick={this.toggleModal} 
+            onClick={this.toggleModal}
           >
             Load Spreadsheet
           </Button>
-<<<<<<< HEAD
-          <CSVLink data={this.state.addresses} 
-=======
           <CSVLink data={this.state.addresses}
->>>>>>> 06b39160a693f35ca36765b135d59b6cb91c0e17
             filename={this.state.filename}
             className="btn btn-lg btn-primary"
             headers={csvDownloadHeaders}
@@ -339,17 +308,20 @@ class AddressList extends Component {
               </Button>
             </div>
           </div>
-<<<<<<< HEAD
-=======
+
           <div className="social-media">
             <div className="col-4 d-inline">
               <Button size="sm" onClick={() => window.open('https://youtu.be/_l7jr9-o-NQ', "_blank")}>
                 <FaYoutube />
               </Button>
             </div>
+            <div className="col-4 d-inline">
+              <Button size="sm" onClick={() => window.open('http://tiny.cc/h4ve4y', "_blank")}>
+                <h5>Android App</h5>
+              </Button>
+            </div>
           </div>
           <Ad2 />
->>>>>>> 06b39160a693f35ca36765b135d59b6cb91c0e17
         </div>
         <div className="col-9">
           <div className="input-form col-12">
@@ -388,11 +360,8 @@ class AddressList extends Component {
             </Form>
           </div>
           <Table hover={true}>
-<<<<<<< HEAD
-            <Totals   
-=======
+
             <Totals
->>>>>>> 06b39160a693f35ca36765b135d59b6cb91c0e17
               fiatSym={this.props.fiatSym}
               addresses={this.state.addresses}
               checkBalanceState={this.props.checkBalanceState}
