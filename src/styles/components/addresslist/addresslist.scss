@@ -3,6 +3,14 @@
   font-size: 1.09vw;
 }
 
+.table > .theList {
+  color: white;
+}
+
+.table > .theList > tr:hover {
+  color: white;
+}
+
 .export-filename {
   font-size: 1.3rem;
   font-weight: 600;
@@ -11,10 +19,6 @@
 
 .input-form {
   font-size: 1.09vw;
-}
-
-#input-address-text {
-  // width: 60%;
 }
 
 .input-address-buttons > .btn {
@@ -61,7 +65,12 @@
 }
 
 .social-media {
+<<<<<<< HEAD
   margin-top: 5%;
+=======
+  margin-top: 10px;
+  margin-left: -15px;
+>>>>>>> 06b39160a693f35ca36765b135d59b6cb91c0e17
 }
 
 .social-media > div > .btn {

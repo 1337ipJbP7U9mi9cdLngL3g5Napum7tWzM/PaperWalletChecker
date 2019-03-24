@@ -4,32 +4,33 @@ import Clipboard from 'react-clipboard-polyfill';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal, ModalHeader, ModalBody, Button, Popover, Alert } from 'reactstrap';
 
+
 class Addresses extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       modal: false,
       address: '',
       popoverOpen: false
     };
-    
+
     this.toggle = this.toggle.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.createAddresses = this.createAddresses.bind(this);
   }
-  
+
   toggle() {
     this.setState({
       popoverOpen: !this.state.popoverOpen
     });
   }
-  
+
   handleAddressState(address) {
     this.setState({address: address});
     this.toggleModal();
   }
-  
+
   toggleModal(address) {
     this.setState({modal: !this.state.modal});
   }
@@ -47,7 +48,7 @@ class Addresses extends Component {
           {address.fiatAmount !== '' ? '$' + address.fiatAmount.toFixed(2) : address.fiatAmount}
         </td>
         <td>
-          <Button size="sm" color="danger" onClick={() => this.delete(address.key)}>remove</Button> 
+          <Button size="sm" color="danger" onClick={() => this.delete(address.key)}>remove</Button>
         </td>
       </tr>
     );
@@ -89,7 +90,7 @@ class Addresses extends Component {
             <QRCode value={address} level="H" className="qrcode-canvas" />
           </ModalBody>
         </Modal>
-        
+
         {listAddresses}
       </tbody>
     );
