@@ -321,7 +321,9 @@ class AddressList extends Component {
               </Button>
             </div>
           </div>
-          <Ad2 />
+          {/*
+            <Ad2 />
+            */}
         </div>
         <div className="col-9">
           <div className="input-form col-12">
