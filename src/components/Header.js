@@ -105,9 +105,7 @@ class Header extends Component {
               </h3>
               {this.props.checkBalanceState === 'checked' ? cryptoFiatRate : ''}
             </div>
-            {/*
-              <Ad popoverOpenAd={this.state.popoverOpenAd} toggleAd={this.toggleAd}/>
-            */}
+            <Ad popoverOpenAd={this.state.popoverOpenAd} toggleAd={this.toggleAd}/>
           </div>
         </div>
     );

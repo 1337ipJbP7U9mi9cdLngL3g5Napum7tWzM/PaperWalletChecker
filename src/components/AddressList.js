@@ -46,6 +46,44 @@ class AddressList extends Component {
     this.updateAddresses(prevProps);
   }
 
+  handleTotalAddresses()  {
+    const totalAddresses = this.state.addresses.length;
+
+    return (totalAddresses === 0 ? '' : totalAddresses);
+  }
+
+  handleTotalCrypto() {
+    if (this.state.checkBalanceState === 'checked') {
+      let totalCrypto = 0;
+
+      this.state.addresses.map(addressObject => {
+        if (addressObject.cryptoAmount !== '') {
+          totalCrypto += addressObject.cryptoAmount;
+        }
+        return 0;
+      });
+      return (
+        this.state.checkBalanceState === 'checked' ? totalCrypto : ''
+      );
+    }
+  }
+
+  handleTotalFiat() {
+    if (this.state.checkBalanceState === 'checked') {
+      let totalFiat = 0;
+
+      this.state.addresses.map(addressObject => {
+        if (addressObject.fiatAmount !== '') {
+          totalFiat += addressObject.fiatAmount;
+        }
+        return 0;
+      });
+
+      return (
+        this.state.checkBalanceState === 'checked' ? '$' + totalFiat.toFixed(2) : ''
+      );
+    }
+  }
 
   clearAddresses(prevProps) {
     if (prevProps.cryptoSym !== this.props.cryptoSym) {
@@ -234,8 +272,8 @@ class AddressList extends Component {
 
   render(){
     const csvDownloadHeaders = [
-      {label: 'Address', key: 'key'},
-      {label: 'btc:', key: 'cryptoAmount'},
+      {label: 'Addresses:' + this.handleTotalAddresses, key: 'key'},
+      {label: 'BTC:', key: 'cryptoAmount'},
       {label: 'USD:', key: 'fiatAmount'}
     ];
 
