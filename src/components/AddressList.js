@@ -359,6 +359,14 @@ class AddressList extends Component {
               </Button>
             </div>
           </div>
+
+          <div className="social-media">
+            <div className="col-4 d-inline">
+              <Button size="sm" onClick={() => window.open('https://www.amazon.com/gp/product/B07PWFN37S', "_blank")}>
+                <h5>Kindle App</h5>
+              </Button>
+            </div>
+          </div>
           {/*
             <Ad2 />
             */}
