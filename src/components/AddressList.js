@@ -272,7 +272,7 @@ class AddressList extends Component {
 
   render(){
     const csvDownloadHeaders = [
-      {label: 'Addresses:' + this.handleTotalAddresses, key: 'key'},
+      {label: 'Addresses:', key: 'key'},
       {label: 'BTC:', key: 'cryptoAmount'},
       {label: 'USD:', key: 'fiatAmount'}
     ];
