@@ -46,6 +46,44 @@ class AddressList extends Component {
     this.updateAddresses(prevProps);
   }
 
+  handleTotalAddresses()  {
+    const totalAddresses = this.state.addresses.length;
+
+    return (totalAddresses === 0 ? '' : totalAddresses);
+  }
+
+  handleTotalCrypto() {
+    if (this.state.checkBalanceState === 'checked') {
+      let totalCrypto = 0;
+
+      this.state.addresses.map(addressObject => {
+        if (addressObject.cryptoAmount !== '') {
+          totalCrypto += addressObject.cryptoAmount;
+        }
+        return 0;
+      });
+      return (
+        this.state.checkBalanceState === 'checked' ? totalCrypto : ''
+      );
+    }
+  }
+
+  handleTotalFiat() {
+    if (this.state.checkBalanceState === 'checked') {
+      let totalFiat = 0;
+
+      this.state.addresses.map(addressObject => {
+        if (addressObject.fiatAmount !== '') {
+          totalFiat += addressObject.fiatAmount;
+        }
+        return 0;
+      });
+
+      return (
+        this.state.checkBalanceState === 'checked' ? '$' + totalFiat.toFixed(2) : ''
+      );
+    }
+  }
 
   clearAddresses(prevProps) {
     if (prevProps.cryptoSym !== this.props.cryptoSym) {
@@ -234,8 +272,8 @@ class AddressList extends Component {
 
   render(){
     const csvDownloadHeaders = [
-      {label: 'Address', key: 'key'},
-      {label: 'btc:', key: 'cryptoAmount'},
+      {label: 'Addresses:', key: 'key'},
+      {label: 'BTC:', key: 'cryptoAmount'},
       {label: 'USD:', key: 'fiatAmount'}
     ];
 
@@ -321,7 +359,17 @@ class AddressList extends Component {
               </Button>
             </div>
           </div>
-          <Ad2 />
+
+          <div className="social-media">
+            <div className="col-4 d-inline">
+              <Button size="sm" onClick={() => window.open('https://www.amazon.com/gp/product/B07PWFN37S', "_blank")}>
+                <h5>Kindle App</h5>
+              </Button>
+            </div>
+          </div>
+          {/*
+            <Ad2 />
+            */}
         </div>
         <div className="col-9">
           <div className="input-form col-12">
