@@ -26,3 +26,9 @@ Developers who want to contribute to this project are welcome.
 POSSIBLE TODO:
 not have toFixed(2) for crypto to crypto comparisons.
 it is for totals on cpwc-addresses totals.
+
+
+To Deploy:
+yarn build
+gzip -9vkr build/
+rsync -a build/ USER@IP_ADDRESS:PaperWalletsChecker/build/

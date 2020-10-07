@@ -19,7 +19,6 @@ export const ethApi = async (addresses, resolve, reject) => {
     axios.get(addressRequests)
     .then((res) => {
       const data = res.data.balance;
-      console.log(data)
       addressesBalance[addresses] = data / 1e+18;
     }).catch((error) => {
       console.log(error);
