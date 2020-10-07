@@ -2,32 +2,20 @@ import axios from 'axios';
 
 export const bchApi = async (addresses, resolve, reject) => {
   let addressesBalance = {};
-  let addressRequests = [];
-  
-  addresses.forEach(address => {
-    addressRequests.push("https://api.blockchair.com/bitcoin-cash/dashboards/address/" + address);
-  });
-  
-  function delay() {
-    return new Promise(resolve => {
-      setTimeout(() => resolve(), 2000);
-    });
+
+  const params = {
+    addresses: []
   }
-  
-  function axiosRequest(addressRequests, addresses) {
-    axios.get(addressRequests)
-    .then((res) => {
-      const data = res.data.data[addresses];
-      addressesBalance[addresses] = data.address.balance / 100000000;
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
-  
-  let i;
-  for (i=0; i<addressRequests.length; i++) {
-    await axiosRequest(addressRequests[i], addresses[i]);
-    await delay();
-  }
-  resolve(addressesBalance);
+
+  params.addresses = addresses
+
+  await axios.post('https://rest.bitcoin.com/v2/address/details', params).then(res => {
+    for(let i=0; i < res.data.length; i++) {
+      addressesBalance[addresses[i]] = res.data[i].balanceSat / 1e+8;
+    }
+  }).catch(err => {
+    console.log(err)
+  })
+
+  resolve(addressesBalance)
 };
